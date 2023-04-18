@@ -5,7 +5,8 @@ services:
       context: client
       dockerfile: Dockerfile
     ports:
-      -3000:3000
+      - 3000:3000
+    stdin_open: true
   backend:
     build:
       context: backend
