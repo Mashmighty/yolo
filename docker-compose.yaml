@@ -16,7 +16,7 @@ services:
     ports:
       - 5000:5000
     environment:
-      mongodb_uri: mongodb://king:king@localhost:27017
+      mongodb_uri: mongodb://king:king@database:27017
     depends_on:
       - database
   database:
@@ -26,3 +26,10 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: king
     ports:
       - 27017:27017
+
+networks:
+  yolo-test-network:
+    ipam:
+      driver: bridge
+      config:
+        subnet: 172.60.5.0/16
