@@ -11,7 +11,7 @@ services:
       - backend
     networks:
       yolo-test-network:
-        ipv4_address: 172.60.5.3
+        ipv4_address: 172.60.0.2
   backend:
     build:
       context: backend
@@ -19,12 +19,12 @@ services:
     ports:
       - 5000:5000
     environment:
-      mongodb_uri: mongodb://king:king@172.60.5.5:27017
+      mongodb_uri: 'mongodb://king:king@172.60.0.4:27017'
     depends_on:
       - database
     networks:
       yolo-test-network:
-        ipv4_address: 172.60.5.4
+        ipv4_address: 172.60.0.3
   database:
     image: mongo
     environment:
@@ -34,11 +34,12 @@ services:
       - 27017:27017
     networks:
       yolo-test-network:
-        ipv4_address: 172.60.5.5
+        ipv4_address: 172.60.0.4
+
 
 networks:
   yolo-test-network:
     ipam:
-      driver: bridge
+      driver: default
       config:
-        subnet: 172.60.5.0/16
+        - subnet: 172.60.0.0/16
