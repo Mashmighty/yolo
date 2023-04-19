@@ -9,6 +9,9 @@ services:
     stdin_open: true
     depends_on:
       - backend
+    networks:
+      yolo-test-network:
+        ipv4_address: 172.60.5.3
   backend:
     build:
       context: backend
@@ -16,9 +19,12 @@ services:
     ports:
       - 5000:5000
     environment:
-      mongodb_uri: mongodb://king:king@database:27017
+      mongodb_uri: mongodb://king:king@172.60.5.5:27017
     depends_on:
       - database
+    networks:
+      yolo-test-network:
+        ipv4_address: 172.60.5.4
   database:
     image: mongo
     environment:
@@ -26,6 +32,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: king
     ports:
       - 27017:27017
+    networks:
+      yolo-test-network:
+        ipv4_address: 172.60.5.5
 
 networks:
   yolo-test-network:
